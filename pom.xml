@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.mcnative.usageanalyser</groupId>
+    <artifactId>McNativeUsageAnalyser</artifactId>
+    <version>1.0.0.0</version>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <dependency.pretronic.libraries.version>1.2.28.166-SNAPSHOT</dependency.pretronic.libraries.version>
+        <dependency.pretronic.libraries.utility.version>${dependency.pretronic.libraries.version}</dependency.pretronic.libraries.utility.version>
+        <dependency.pretronic.libraries.document.version>${dependency.pretronic.libraries.version}</dependency.pretronic.libraries.document.version>
+        <dependency.pretronic.libraries.caching.version>${dependency.pretronic.libraries.version}</dependency.pretronic.libraries.caching.version>
+        <dependency.pretronic.libraries.concurrent.version>${dependency.pretronic.libraries.version}</dependency.pretronic.libraries.concurrent.version>
+        <dependency.pretronic.libraries.logging.version>${dependency.pretronic.libraries.version}</dependency.pretronic.libraries.logging.version>
+        <dependency.pretronic.databasequery.version>1.2.46.73-SNAPSHOT</dependency.pretronic.databasequery.version>
+
+        <dependency.mariadb.version>2.6.0</dependency.mariadb.version>
+
+
+        <plugin.maven.compiler.version>3.8.1</plugin.maven.compiler.version>
+        <plugin.maven.shade.version>3.2.1</plugin.maven.shade.version>
+        <plugin.maven.jar.version>3.2.0</plugin.maven.jar.version>
+    </properties>
+
+    <repositories>
+        <repository>
+            <id>pretronic</id>
+            <url>https://repository.pretronic.net/repository/pretronic/</url>
+        </repository>
+        <repository>
+            <id>jcenter</id>
+            <name>jcenter-bintray</name>
+            <url>https://jcenter.bintray.com</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>io.sentry</groupId>
+            <artifactId>sentry-logback</artifactId>
+            <version>3.1.1</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>net.pretronic.libraries</groupId>
+            <artifactId>pretroniclibraries-utility</artifactId>
+            <version>${dependency.pretronic.libraries.utility.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.pretronic.libraries</groupId>
+            <artifactId>pretroniclibraries-document</artifactId>
+            <version>${dependency.pretronic.libraries.document.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.pretronic.libraries</groupId>
+            <artifactId>pretroniclibraries-caching</artifactId>
+            <version>${dependency.pretronic.libraries.caching.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.pretronic.libraries</groupId>
+            <artifactId>pretroniclibraries-concurrent</artifactId>
+            <version>${dependency.pretronic.libraries.concurrent.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.pretronic.libraries</groupId>
+            <artifactId>pretroniclibraries-logging</artifactId>
+            <version>${dependency.pretronic.libraries.logging.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>net.pretronic.databasequery</groupId>
+            <artifactId>pretronicdatabasequery-sql</artifactId>
+            <version>${dependency.pretronic.databasequery.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mariadb.jdbc</groupId>
+            <artifactId>mariadb-java-client</artifactId>
+            <version>${dependency.mariadb.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.github.cdimascio</groupId>
+            <artifactId>dotenv-java</artifactId>
+            <version>2.2.0</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${plugin.maven.compiler.version}</version>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>${plugin.maven.shade.version}</version>
+                <configuration>
+                    <createDependencyReducedPom>false</createDependencyReducedPom>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <finalName>McNativeUsageAnalyser</finalName>
+                            <outputDirectory>build/</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>${plugin.maven.jar.version}</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>org.mcnative.usageanalyser.McNativeUsageAnalyserBootstrap</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
