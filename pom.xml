@@ -124,7 +124,6 @@
                         </goals>
                         <configuration>
                             <finalName>McNativeUsageAnalyser</finalName>
-                            <outputDirectory>build/</outputDirectory>
                         </configuration>
                     </execution>
                 </executions>
